@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f6fa">
+    <title>Clients — Maison CRM</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navigation principale">
+        <a class="brand" href="/" aria-label="Maison CRM, accueil">
+          <span class="brand-mark" aria-hidden="true">M</span>
+          <span>maison<span class="brand-light">crm</span></span>
+        </a>
+        <p class="nav-caption">ESPACE DE TRAVAIL</p>
+        <a class="nav-link active" href="#clients" aria-current="page">
+          <span class="nav-icon" aria-hidden="true">▦</span>
+          Clients
+        </a>
+        <div class="sidebar-note">
+          <span class="note-icon" aria-hidden="true">✦</span>
+          <p>Gardez vos relations clients au même endroit.</p>
+        </div>
+        <p class="sidebar-footer">Votre espace, en toute simplicité.</p>
+      </aside>
+
+      <main class="main-content" id="clients">
+        <header class="topbar">
+          <div class="breadcrumb">Espace de travail <span>/</span> <strong>Clients</strong></div>
+          <div class="user-badge" aria-label="Espace équipe">É</div>
+        </header>
+
+        <section class="page-heading" aria-labelledby="page-title">
+          <div>
+            <p class="eyebrow">VOTRE CARNET D’ADRESSES</p>
+            <h1 id="page-title">Les clients</h1>
+            <p class="subtitle">Retrouvez et gérez toutes vos relations au même endroit.</p>
+          </div>
+          <a class="button button-primary heading-action" href="#client-form">＋ <span>Nouveau client</span></a>
+        </section>
+
+        <section class="stats-grid" aria-label="Résumé des clients">
+          <article class="stat-card">
+            <span class="stat-label">Tous les contacts</span>
+            <strong class="stat-value" id="total-count">—</strong>
+            <span class="stat-hint">dans votre carnet</span>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Clients actifs</span>
+            <strong class="stat-value" id="active-count">—</strong>
+            <span class="stat-hint"><span class="status-dot dot-client"></span> relations en cours</span>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Prospects</span>
+            <strong class="stat-value" id="prospect-count">—</strong>
+            <span class="stat-hint"><span class="status-dot dot-prospect"></span> à accompagner</span>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <section class="panel client-panel" aria-labelledby="list-title">
+            <div class="panel-heading">
+              <div>
+                <h2 id="list-title">Tous les contacts</h2>
+                <p class="panel-description">La liste de vos clients et prospects</p>
+              </div>
+              <span class="count-badge" id="visible-count">0 contact</span>
+            </div>
+
+            <div class="toolbar">
+              <label class="search-box">
+                <span aria-hidden="true">⌕</span>
+                <span class="visually-hidden">Rechercher un client</span>
+                <input id="search-input" type="search" placeholder="Nom, email, entreprise…" autocomplete="off">
+              </label>
+              <label class="filter-label" for="status-filter">Statut</label>
+              <select id="status-filter">
+                <option value="tous">Tous les statuts</option>
+                <option value="client">Client</option>
+                <option value="prospect">Prospect</option>
+                <option value="inactif">Inactif</option>
+              </select>
+            </div>
+
+            <div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Contact</th>
+                    <th scope="col">Entreprise</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col"><span class="visually-hidden">Actions</span></th>
+                  </tr>
+                </thead>
+                <tbody id="client-list"></tbody>
+              </table>
+              <div id="empty-state" class="empty-state" hidden>
+                <span class="empty-icon" aria-hidden="true">◎</span>
+                <h3>Aucun contact pour le moment</h3>
+                <p>Ajoutez votre premier client pour commencer.</p>
+              </div>
+              <div id="no-results" class="empty-state" hidden>
+                <span class="empty-icon" aria-hidden="true">⌕</span>
+                <h3>Aucun résultat</h3>
+                <p>Essayez de modifier votre recherche ou votre filtre.</p>
+              </div>
+            </div>
+          </section>
+
+          <aside class="panel form-panel" aria-labelledby="form-title">
+            <div class="panel-heading form-heading">
+              <div>
+                <p class="eyebrow">VOTRE CARNET</p>
+                <h2 id="form-title">Ajouter un client</h2>
+                <p class="panel-description">Les champs * sont obligatoires.</p>
+              </div>
+              <span class="form-icon" aria-hidden="true">＋</span>
+            </div>
+            <form id="client-form">
+              <label for="nom">Nom complet <span class="required">*</span></label>
+              <input id="nom" name="nom" type="text" placeholder="Ex. Camille Martin" maxlength="100" required>
+
+              <label for="email">Adresse email <span class="required">*</span></label>
+              <input id="email" name="email" type="email" placeholder="camille@exemple.fr" maxlength="254" required>
+
+              <label for="entreprise">Entreprise</label>
+              <input id="entreprise" name="entreprise" type="text" placeholder="Ex. Atelier Martin" maxlength="120">
+
+              <label for="telephone">Téléphone</label>
+              <input id="telephone" name="telephone" type="tel" placeholder="+33 6 12 34 56 78" maxlength="30">
+
+              <label for="statut">Statut</label>
+              <select id="statut" name="statut">
+                <option value="prospect">Prospect</option>
+                <option value="client">Client</option>
+                <option value="inactif">Inactif</option>
+              </select>
+
+              <div class="form-actions">
+                <button class="button button-primary submit-button" type="submit" id="submit-button">Ajouter le contact</button>
+                <button class="button button-secondary" type="button" id="cancel-edit" hidden>Annuler</button>
+              </div>
+            </form>
+          </aside>
+        </section>
+        <footer class="page-footer">Maison CRM <span>·</span> Une gestion simple, des relations durables.</footer>
+      </main>
+    </div>
+  </body>
+</html>
